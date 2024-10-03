@@ -19,15 +19,13 @@ jobs:
           terraform_version: 1.0.0  
       
       - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
         working-directory: ./storage_account
         env:
           ARM_CLIENT_ID: ${{ secrets.ZION_INFRA_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ZION_INFRA_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ZION_INFRA_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ZION_INFRA_SUBSCRIPTION_ID }}
+        run: terraform init
 
       - name: Terraform Apply
         working-directory: ./storage_account

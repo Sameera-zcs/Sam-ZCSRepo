@@ -22,7 +22,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -var-file=terraform.tfvars
+        working-directory: ./storage_account
         env:
           ARM_CLIENT_ID: ${{ secrets.ZION_INFRA_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ZION_INFRA_CLIENT_SECRET }}
@@ -30,9 +30,10 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ZION_INFRA_SUBSCRIPTION_ID }}
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var-file=terraform.tfvars
+        working-directory: ./storage_account
         env:
           ARM_CLIENT_ID: ${{ secrets.ZION_INFRA_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ZION_INFRA_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ZION_INFRA_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ZION_INFRA_SUBSCRIPTION_ID }}
+        run: terraform apply -auto-approve

@@ -32,3 +32,9 @@ variable "container_access_type" {
   description = "Access level of the container (private, blob, container)"
   type        = string
 }
+
+variable "tags" {
+  description = "Tags for the storage account"
+  type        = map(string)
+  default     = {}
+}

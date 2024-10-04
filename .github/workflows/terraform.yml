@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -19,10 +19,7 @@ jobs:
           terraform_version: 1.0.0  
       
       - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        working-directory: ./storage_account
+        run: terraform init -var-file=storage_account/terraform.tfvars
         env:
           ARM_CLIENT_ID: ${{ secrets.ZION_INFRA_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ZION_INFRA_CLIENT_SECRET }}
@@ -30,10 +27,10 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ZION_INFRA_SUBSCRIPTION_ID }}
 
       - name: Terraform Apply
-        working-directory: ./storage_account
+        run: terraform apply -var-file=storage_account/terraform.tfvars -auto-approve
         env:
           ARM_CLIENT_ID: ${{ secrets.ZION_INFRA_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ZION_INFRA_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ZION_INFRA_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ZION_INFRA_SUBSCRIPTION_ID }}
-        run: terraform apply -auto-approve
+        

@@ -38,3 +38,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "subscription_id" {
+  description = "The subscription ID where the role will be created"
+  type        = string
+}
